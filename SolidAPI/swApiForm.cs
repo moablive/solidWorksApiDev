@@ -1,18 +1,25 @@
 ﻿using System;
 using System.Windows.Forms;
-using SolidAPI.Classes;
-using SolidAPI.SwFiles;
 
+//SOLIDWORKS DLLs
+using SolidWorks.Interop.sldworks;
+
+//PROJETO
+using SolidAPI.Sw;
+using SolidAPI.SwFiles;
 
 namespace SolidAPI
 {
     public partial class swApiForm : Form
     {
-        //SOLID GLOBAL
-        SWAPI objsw = new SWAPI();
+        //SWAPI - CLASS
+        SWAPI swapi = new SWAPI();
 
-        //SwOpenFilesType
-        SwOpenFilesType swOpenFilesType = new SwOpenFilesType();
+        //SldWorks - Instancia
+        SldWorks sldWorks = default(SldWorks);
+
+        //SwOpenFilesType - CLASS
+        SwFilesType swOpenFilesType = new SwFilesType();
 
         public swApiForm()
         {
@@ -23,7 +30,7 @@ namespace SolidAPI
         {
             try
             {
-                objsw.AbrirSolidWorks(chkVisivel.Checked, 31);
+                sldWorks = swapi.AbrirSolidWorks(chkVisivel.Checked, 31);
             }
             catch (Exception ex)
             {
@@ -35,7 +42,7 @@ namespace SolidAPI
         {
             try
             {
-                objsw.FecharSolidWorks();
+                swapi.FecharSolidWorks();
             }
             catch (Exception ex)
             {
@@ -47,11 +54,11 @@ namespace SolidAPI
         {
             try
             {
-                string fileNameSLDPRT = swOpenFilesType.OpenFileSLDPRT();
+                string fileNameSLDPRT = swOpenFilesType.selectFileSldprt();
 
                 if (!string.IsNullOrEmpty(fileNameSLDPRT))
                 {
-                    objsw.AbrirArquivo(fileNameSLDPRT);
+                    swOpenFilesType.openSldprt(fileNameSLDPRT, sldWorks);
                 }
             }
             catch (Exception ex)

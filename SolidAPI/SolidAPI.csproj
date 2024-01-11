@@ -58,7 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\SWAPI.cs" />
+    <Compile Include="Sw\SWAPI.cs" />
     <Compile Include="swApiForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,7 +67,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SwFiles\SwOpenFilesType.cs" />
+    <Compile Include="SwFiles\SwFilesType.cs" />
     <EmbeddedResource Include="swApiForm.resx">
       <DependentUpon>swApiForm.cs</DependentUpon>
     </EmbeddedResource>
