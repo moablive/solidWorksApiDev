@@ -34,7 +34,10 @@ namespace SolidAPI
             this.btnFecharSw = new System.Windows.Forms.Button();
             this.grpBoxSW = new System.Windows.Forms.GroupBox();
             this.grpBoxArquivo = new System.Windows.Forms.GroupBox();
+            this.btnFechar_Arquivo_Sldprt = new System.Windows.Forms.Button();
             this.btnAbrir_Arquivo_Sldprt = new System.Windows.Forms.Button();
+            this.btnExportar = new System.Windows.Forms.Button();
+            this.lbProcesso = new System.Windows.Forms.Label();
             this.grpBoxSW.SuspendLayout();
             this.grpBoxArquivo.SuspendLayout();
             this.SuspendLayout();
@@ -45,7 +48,7 @@ namespace SolidAPI
             this.btnAbrirSW.Name = "btnAbrirSW";
             this.btnAbrirSW.Size = new System.Drawing.Size(105, 50);
             this.btnAbrirSW.TabIndex = 0;
-            this.btnAbrirSW.Text = "Abrir SW";
+            this.btnAbrirSW.Text = "Abrir SW (2023)";
             this.btnAbrirSW.UseVisualStyleBackColor = true;
             this.btnAbrirSW.Click += new System.EventHandler(this.btnAbrirSW_Click);
             // 
@@ -65,7 +68,7 @@ namespace SolidAPI
             this.btnFecharSw.Name = "btnFecharSw";
             this.btnFecharSw.Size = new System.Drawing.Size(105, 44);
             this.btnFecharSw.TabIndex = 2;
-            this.btnFecharSw.Text = "Fechar SW";
+            this.btnFecharSw.Text = "Fechar SW (2023)";
             this.btnFecharSw.UseVisualStyleBackColor = true;
             this.btnFecharSw.Click += new System.EventHandler(this.btnFecharSw_Click);
             // 
@@ -83,29 +86,60 @@ namespace SolidAPI
             // 
             // grpBoxArquivo
             // 
+            this.grpBoxArquivo.Controls.Add(this.btnExportar);
+            this.grpBoxArquivo.Controls.Add(this.btnFechar_Arquivo_Sldprt);
             this.grpBoxArquivo.Controls.Add(this.btnAbrir_Arquivo_Sldprt);
             this.grpBoxArquivo.Location = new System.Drawing.Point(50, 205);
             this.grpBoxArquivo.Name = "grpBoxArquivo";
-            this.grpBoxArquivo.Size = new System.Drawing.Size(200, 100);
+            this.grpBoxArquivo.Size = new System.Drawing.Size(200, 147);
             this.grpBoxArquivo.TabIndex = 4;
             this.grpBoxArquivo.TabStop = false;
             this.grpBoxArquivo.Text = "Arquivo";
+            // 
+            // btnFechar_Arquivo_Sldprt
+            // 
+            this.btnFechar_Arquivo_Sldprt.Location = new System.Drawing.Point(20, 72);
+            this.btnFechar_Arquivo_Sldprt.Name = "btnFechar_Arquivo_Sldprt";
+            this.btnFechar_Arquivo_Sldprt.Size = new System.Drawing.Size(105, 32);
+            this.btnFechar_Arquivo_Sldprt.TabIndex = 1;
+            this.btnFechar_Arquivo_Sldprt.Text = "Fechar - SLDPRT";
+            this.btnFechar_Arquivo_Sldprt.UseVisualStyleBackColor = true;
+            this.btnFechar_Arquivo_Sldprt.Click += new System.EventHandler(this.btnFechar_Arquivo_Sldprt_Click);
             // 
             // btnAbrir_Arquivo_Sldprt
             // 
             this.btnAbrir_Arquivo_Sldprt.Location = new System.Drawing.Point(20, 34);
             this.btnAbrir_Arquivo_Sldprt.Name = "btnAbrir_Arquivo_Sldprt";
-            this.btnAbrir_Arquivo_Sldprt.Size = new System.Drawing.Size(105, 38);
+            this.btnAbrir_Arquivo_Sldprt.Size = new System.Drawing.Size(105, 32);
             this.btnAbrir_Arquivo_Sldprt.TabIndex = 0;
             this.btnAbrir_Arquivo_Sldprt.Text = "Abrir - SLDPRT";
             this.btnAbrir_Arquivo_Sldprt.UseVisualStyleBackColor = true;
             this.btnAbrir_Arquivo_Sldprt.Click += new System.EventHandler(this.btnAbrir_Arquivo_Sldprt_Click);
+            // 
+            // btnExportar
+            // 
+            this.btnExportar.Location = new System.Drawing.Point(20, 110);
+            this.btnExportar.Name = "btnExportar";
+            this.btnExportar.Size = new System.Drawing.Size(105, 32);
+            this.btnExportar.TabIndex = 2;
+            this.btnExportar.Text = "Exportar";
+            this.btnExportar.UseVisualStyleBackColor = true;
+            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
+            // 
+            // lbProcesso
+            // 
+            this.lbProcesso.AutoSize = true;
+            this.lbProcesso.Location = new System.Drawing.Point(13, 425);
+            this.lbProcesso.Name = "lbProcesso";
+            this.lbProcesso.Size = new System.Drawing.Size(0, 13);
+            this.lbProcesso.TabIndex = 5;
             // 
             // swApiForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(366, 450);
+            this.Controls.Add(this.lbProcesso);
             this.Controls.Add(this.grpBoxArquivo);
             this.Controls.Add(this.grpBoxSW);
             this.Name = "swApiForm";
@@ -114,6 +148,7 @@ namespace SolidAPI
             this.grpBoxSW.PerformLayout();
             this.grpBoxArquivo.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -125,6 +160,9 @@ namespace SolidAPI
         private System.Windows.Forms.GroupBox grpBoxSW;
         private System.Windows.Forms.GroupBox grpBoxArquivo;
         private System.Windows.Forms.Button btnAbrir_Arquivo_Sldprt;
+        private System.Windows.Forms.Button btnFechar_Arquivo_Sldprt;
+        private System.Windows.Forms.Button btnExportar;
+        private System.Windows.Forms.Label lbProcesso;
     }
 }
 

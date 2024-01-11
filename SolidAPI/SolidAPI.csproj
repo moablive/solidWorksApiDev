@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SwExport\SwExportFileType.cs" />
     <Compile Include="Sw\SWAPI.cs" />
     <Compile Include="swApiForm.cs">
       <SubType>Form</SubType>

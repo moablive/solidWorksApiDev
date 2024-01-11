@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 
-
 // SolidWorks DLLs
 using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
@@ -12,7 +11,7 @@ namespace SolidAPI.SwFiles
     { 
 
         #region Files SLDPRT
-        public string selectFileSldprt()
+        public string SelectSldprt()
         {
             OpenFileDialog openFileSW = new OpenFileDialog
             {
@@ -41,7 +40,7 @@ namespace SolidAPI.SwFiles
             }
         }
 
-        public void openSldprt(string CaminhoArquivo, SldWorks sldWorks)
+        public void OpenSldprt(string CaminhoArquivo, SldWorks sldWorks)
         {
             int err = 0, wars = 0;
             
@@ -57,10 +56,47 @@ namespace SolidAPI.SwFiles
                 );
 
                 PartDoc swpPart = (PartDoc)swModelDoc;
+
+
+                //ARQUIVO ABERTO ||=> getActiveSldprt()
+                var fileSldprt = getActiveSldprt(sldWorks);
+                MessageBox.Show($"VOCE ABRIU: {fileSldprt}");
+                //ARQUIVO ABERTO
             }
             catch (Exception e)
             {
                 throw new Exception($"Erro ao abrir um arquivo no SolidWorks: {e.Message}\n{e.StackTrace}");
+            }
+        }
+
+        public string GetActiveSldprt(SldWorks sldWorks)
+        {
+            string fileSldprt = "";
+
+            try
+            {
+                ModelDoc2 swModelDoc = (ModelDoc2)sldWorks.ActiveDoc;
+                fileSldprt = swModelDoc.GetTitle();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return fileSldprt;
+        }
+
+        public void CloseSldprt(string CaminhoArquivo, SldWorks sldWorks)
+        {
+            try
+            {
+                sldWorks.CloseDoc(CaminhoArquivo);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         #endregion
