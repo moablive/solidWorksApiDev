@@ -102,7 +102,7 @@ namespace SolidAPI
             // 
             this.btnExportarPDF.Location = new System.Drawing.Point(20, 144);
             this.btnExportarPDF.Name = "btnExportarPDF";
-            this.btnExportarPDF.Size = new System.Drawing.Size(158, 32);
+            this.btnExportarPDF.Size = new System.Drawing.Size(105, 32);
             this.btnExportarPDF.TabIndex = 3;
             this.btnExportarPDF.Text = "Exportar - PDF";
             this.btnExportarPDF.UseVisualStyleBackColor = true;

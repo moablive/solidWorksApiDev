@@ -15,7 +15,7 @@ namespace SolidAPI.SwExport
         //Instancia LIB SKA
         SW sw = new SW();
 
-        public void JPG(string fileJpg, string caminhoExportArquivo, SldWorks sldWorks)
+        public void JPG(string fileJPG, string caminhoExportArquivo, SldWorks sldWorks)
         {
             try
             {
@@ -23,7 +23,7 @@ namespace SolidAPI.SwExport
                 ModelDoc2 swModelDoc = (ModelDoc2)sldWorks.ActiveDoc;
 
                 //Export
-                string fullPath = Path.Combine(caminhoExportArquivo, fileJpg);
+                string fullPath = Path.Combine(caminhoExportArquivo, fileJPG);
 
                 bool resultado = swModelDoc.SaveAs(fullPath);
 

@@ -69,6 +69,7 @@ namespace SolidAPI
         }
         #endregion
 
+        #region BTN_ARQUIVOS
         private void btnAbrir_Arquivo_Click(object sender, EventArgs e)
         {
             lbProcesso.Text = "Abrindo Arquivo...";
@@ -118,13 +119,13 @@ namespace SolidAPI
                 string getFile = swFilesType.GetOpenFile(sldWorks);
 
                 //REPLACE SLDPRT => JPG
-                string fileJpg = getFile.ToUpper()
+                string fileJPG = getFile.ToUpper()
                     .Replace(".SLDPRT", ".JPG")
                     .Replace(".SLDASM", ".JPG")
                     .Replace(".SLDDRW", ".JPG");
 
                 //Convert => jpg()
-                swExportFileType.JPG(fileJpg, caminhoExportArquivo, sldWorks);
+                swExportFileType.JPG(fileJPG, caminhoExportArquivo, sldWorks);
 
                 lbProcesso.Text = "";
             }
@@ -142,15 +143,19 @@ namespace SolidAPI
             //GET SLDPRT ABERTO
             string getFile = swFilesType.GetOpenFile(sldWorks);
 
-            //REPLACE SLDPRT => PDF
-            string fileSldprtPDF = getFile.ToUpper().Replace(".SLDPRT", ".PDF");
+            //REPLACE SLDPRT => JPG
+            string filePDF = getFile.ToUpper()
+                .Replace(".SLDPRT", ".PDF")
+                .Replace(".SLDASM", ".PDF")
+                .Replace(".SLDDRW", ".PDF");
 
             //Export
-            string fullPath = Path.Combine(caminhoExportArquivo, fileSldprtPDF);
+            string fullPath = Path.Combine(caminhoExportArquivo, filePDF);
 
             //VERIFICAR TIPOS COMPATIVEIS
             swExportFileType.pdf(fullPath);
         }
+        #endregion
     }
 }
 
