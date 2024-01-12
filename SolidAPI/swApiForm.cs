@@ -6,8 +6,11 @@ using SolidWorks.Interop.sldworks;
 
 //PROJETO
 using SolidAPI.Sw;
-using SolidAPI.SwExport;
 using SolidAPI.SwFiles;
+using SolidAPI.SwExport;
+
+
+using System.IO;
 
 namespace SolidAPI
 {
@@ -20,14 +23,15 @@ namespace SolidAPI
         //SwExportFileType - CLASS
         SwExportFileType swExportFileType = new SwExportFileType();
 
-        //SwOpenFilesType - CLASS
+        //SwFiles - CLASS
         SwFilesType swFilesType = new SwFilesType();
 
         //SldWorks - Instancia
         SldWorks sldWorks = default(SldWorks);
 
-        //CAMINHO ARQUIVO SLDPRT
-        string fileNameSLDPRT;
+        //Arquivo 
+        string _file;
+        string _fileType;
         #endregion
 
         public swApiForm()
@@ -65,19 +69,18 @@ namespace SolidAPI
         }
         #endregion
 
-        #region BTN_Sldprt
-
-        private void btnAbrir_Arquivo_Sldprt_Click(object sender, EventArgs e)
+        private void btnAbrir_Arquivo_Click(object sender, EventArgs e)
         {
-            lbProcesso.Text = "Abrindo SLDPRT...";
+            lbProcesso.Text = "Abrindo Arquivo...";
 
             try
             {
-                fileNameSLDPRT = swFilesType.SelectSldprt();
+                _file = swFilesType.SetFile();
+                _fileType = swFilesType.GetFileType(_file);
 
-                if (!string.IsNullOrEmpty(fileNameSLDPRT))
+                if (!string.IsNullOrEmpty(_file))
                 {
-                    swFilesType.OpenSldprt(fileNameSLDPRT, sldWorks);
+                    swFilesType.OpenFile(_file, _fileType, sldWorks);
                 } 
                 
                 lbProcesso.Text = "";
@@ -88,13 +91,13 @@ namespace SolidAPI
             }
         }
 
-        private void btnFechar_Arquivo_Sldprt_Click(object sender, EventArgs e)
+        private void btnFechar_Arquivo_Click(object sender, EventArgs e)
         {
-            lbProcesso.Text = "FECHAR SLDPRT...";
+            lbProcesso.Text = "FECHAR Arquivo...";
 
             try
             {
-                swFilesType.CloseSldprt(fileNameSLDPRT, sldWorks);
+                swFilesType.CloseFile(_file, sldWorks);
                 lbProcesso.Text = "";
             }
             catch (Exception ex)
@@ -103,7 +106,7 @@ namespace SolidAPI
             }
         }
 
-        private void btnExportar_Click(object sender, EventArgs e)
+        private void btnExportarJPG_Click(object sender, EventArgs e)
         {
             lbProcesso.Text = "Exportando JPG...";
             try
@@ -111,14 +114,17 @@ namespace SolidAPI
                 //SET LOCAL
                 string caminhoExportArquivo = swExportFileType.SetLocalExport();
 
-                //GET SLDPRT ABERTO
-                string getFile = swFilesType.GetActiveSldprt(sldWorks);
+                //GET ARQUIVO ABERTO
+                string getFile = swFilesType.GetOpenFile(sldWorks);
 
                 //REPLACE SLDPRT => JPG
-                string fileSldprtJpg = getFile.ToUpper().Replace(".SLDPRT", ".JPG");
+                string fileJpg = getFile.ToUpper()
+                    .Replace(".SLDPRT", ".JPG")
+                    .Replace(".SLDASM", ".JPG")
+                    .Replace(".SLDDRW", ".JPG");
 
                 //Convert => jpg()
-                swExportFileType.JPG(fileSldprtJpg, caminhoExportArquivo, sldWorks);
+                swExportFileType.JPG(fileJpg, caminhoExportArquivo, sldWorks);
 
                 lbProcesso.Text = "";
             }
@@ -127,7 +133,24 @@ namespace SolidAPI
                 MessageBox.Show(ex.Message, "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        #endregion
+
+        private void btnExportarPDF_Click(object sender, EventArgs e)
+        {
+            //SET LOCAL
+            string caminhoExportArquivo = swExportFileType.SetLocalExport();
+
+            //GET SLDPRT ABERTO
+            string getFile = swFilesType.GetOpenFile(sldWorks);
+
+            //REPLACE SLDPRT => PDF
+            string fileSldprtPDF = getFile.ToUpper().Replace(".SLDPRT", ".PDF");
+
+            //Export
+            string fullPath = Path.Combine(caminhoExportArquivo, fileSldprtPDF);
+
+            //VERIFICAR TIPOS COMPATIVEIS
+            swExportFileType.pdf(fullPath);
+        }
     }
 }
 

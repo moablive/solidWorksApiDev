@@ -34,9 +34,10 @@ namespace SolidAPI
             this.btnFecharSw = new System.Windows.Forms.Button();
             this.grpBoxSW = new System.Windows.Forms.GroupBox();
             this.grpBoxArquivo = new System.Windows.Forms.GroupBox();
-            this.btnFechar_Arquivo_Sldprt = new System.Windows.Forms.Button();
-            this.btnAbrir_Arquivo_Sldprt = new System.Windows.Forms.Button();
-            this.btnExportar = new System.Windows.Forms.Button();
+            this.btnExportarPDF = new System.Windows.Forms.Button();
+            this.btnExportarJPG = new System.Windows.Forms.Button();
+            this.btnFechar_Arquivo = new System.Windows.Forms.Button();
+            this.btnAbrir_Arquivo = new System.Windows.Forms.Button();
             this.lbProcesso = new System.Windows.Forms.Label();
             this.grpBoxSW.SuspendLayout();
             this.grpBoxArquivo.SuspendLayout();
@@ -86,45 +87,56 @@ namespace SolidAPI
             // 
             // grpBoxArquivo
             // 
-            this.grpBoxArquivo.Controls.Add(this.btnExportar);
-            this.grpBoxArquivo.Controls.Add(this.btnFechar_Arquivo_Sldprt);
-            this.grpBoxArquivo.Controls.Add(this.btnAbrir_Arquivo_Sldprt);
+            this.grpBoxArquivo.Controls.Add(this.btnExportarPDF);
+            this.grpBoxArquivo.Controls.Add(this.btnExportarJPG);
+            this.grpBoxArquivo.Controls.Add(this.btnFechar_Arquivo);
+            this.grpBoxArquivo.Controls.Add(this.btnAbrir_Arquivo);
             this.grpBoxArquivo.Location = new System.Drawing.Point(50, 205);
             this.grpBoxArquivo.Name = "grpBoxArquivo";
-            this.grpBoxArquivo.Size = new System.Drawing.Size(200, 147);
+            this.grpBoxArquivo.Size = new System.Drawing.Size(200, 182);
             this.grpBoxArquivo.TabIndex = 4;
             this.grpBoxArquivo.TabStop = false;
             this.grpBoxArquivo.Text = "Arquivo";
             // 
-            // btnFechar_Arquivo_Sldprt
+            // btnExportarPDF
             // 
-            this.btnFechar_Arquivo_Sldprt.Location = new System.Drawing.Point(20, 72);
-            this.btnFechar_Arquivo_Sldprt.Name = "btnFechar_Arquivo_Sldprt";
-            this.btnFechar_Arquivo_Sldprt.Size = new System.Drawing.Size(105, 32);
-            this.btnFechar_Arquivo_Sldprt.TabIndex = 1;
-            this.btnFechar_Arquivo_Sldprt.Text = "Fechar - SLDPRT";
-            this.btnFechar_Arquivo_Sldprt.UseVisualStyleBackColor = true;
-            this.btnFechar_Arquivo_Sldprt.Click += new System.EventHandler(this.btnFechar_Arquivo_Sldprt_Click);
+            this.btnExportarPDF.Location = new System.Drawing.Point(20, 144);
+            this.btnExportarPDF.Name = "btnExportarPDF";
+            this.btnExportarPDF.Size = new System.Drawing.Size(158, 32);
+            this.btnExportarPDF.TabIndex = 3;
+            this.btnExportarPDF.Text = "Exportar - PDF";
+            this.btnExportarPDF.UseVisualStyleBackColor = true;
+            this.btnExportarPDF.Click += new System.EventHandler(this.btnExportarPDF_Click);
             // 
-            // btnAbrir_Arquivo_Sldprt
+            // btnExportarJPG
             // 
-            this.btnAbrir_Arquivo_Sldprt.Location = new System.Drawing.Point(20, 34);
-            this.btnAbrir_Arquivo_Sldprt.Name = "btnAbrir_Arquivo_Sldprt";
-            this.btnAbrir_Arquivo_Sldprt.Size = new System.Drawing.Size(105, 32);
-            this.btnAbrir_Arquivo_Sldprt.TabIndex = 0;
-            this.btnAbrir_Arquivo_Sldprt.Text = "Abrir - SLDPRT";
-            this.btnAbrir_Arquivo_Sldprt.UseVisualStyleBackColor = true;
-            this.btnAbrir_Arquivo_Sldprt.Click += new System.EventHandler(this.btnAbrir_Arquivo_Sldprt_Click);
+            this.btnExportarJPG.Location = new System.Drawing.Point(20, 110);
+            this.btnExportarJPG.Name = "btnExportarJPG";
+            this.btnExportarJPG.Size = new System.Drawing.Size(105, 32);
+            this.btnExportarJPG.TabIndex = 2;
+            this.btnExportarJPG.Text = "Exportar - JPG";
+            this.btnExportarJPG.UseVisualStyleBackColor = true;
+            this.btnExportarJPG.Click += new System.EventHandler(this.btnExportarJPG_Click);
             // 
-            // btnExportar
+            // btnFechar_Arquivo
             // 
-            this.btnExportar.Location = new System.Drawing.Point(20, 110);
-            this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(105, 32);
-            this.btnExportar.TabIndex = 2;
-            this.btnExportar.Text = "Exportar";
-            this.btnExportar.UseVisualStyleBackColor = true;
-            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
+            this.btnFechar_Arquivo.Location = new System.Drawing.Point(20, 72);
+            this.btnFechar_Arquivo.Name = "btnFechar_Arquivo";
+            this.btnFechar_Arquivo.Size = new System.Drawing.Size(105, 32);
+            this.btnFechar_Arquivo.TabIndex = 1;
+            this.btnFechar_Arquivo.Text = "Fechar Arquivo";
+            this.btnFechar_Arquivo.UseVisualStyleBackColor = true;
+            this.btnFechar_Arquivo.Click += new System.EventHandler(this.btnFechar_Arquivo_Click);
+            // 
+            // btnAbrir_Arquivo
+            // 
+            this.btnAbrir_Arquivo.Location = new System.Drawing.Point(20, 34);
+            this.btnAbrir_Arquivo.Name = "btnAbrir_Arquivo";
+            this.btnAbrir_Arquivo.Size = new System.Drawing.Size(105, 32);
+            this.btnAbrir_Arquivo.TabIndex = 0;
+            this.btnAbrir_Arquivo.Text = "Abrir Arquivo";
+            this.btnAbrir_Arquivo.UseVisualStyleBackColor = true;
+            this.btnAbrir_Arquivo.Click += new System.EventHandler(this.btnAbrir_Arquivo_Click);
             // 
             // lbProcesso
             // 
@@ -159,10 +171,11 @@ namespace SolidAPI
         private System.Windows.Forms.Button btnFecharSw;
         private System.Windows.Forms.GroupBox grpBoxSW;
         private System.Windows.Forms.GroupBox grpBoxArquivo;
-        private System.Windows.Forms.Button btnAbrir_Arquivo_Sldprt;
-        private System.Windows.Forms.Button btnFechar_Arquivo_Sldprt;
-        private System.Windows.Forms.Button btnExportar;
+        private System.Windows.Forms.Button btnAbrir_Arquivo;
+        private System.Windows.Forms.Button btnFechar_Arquivo;
+        private System.Windows.Forms.Button btnExportarJPG;
         private System.Windows.Forms.Label lbProcesso;
+        private System.Windows.Forms.Button btnExportarPDF;
     }
 }
 

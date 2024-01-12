@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 
 // SolidWorks DLLs
@@ -8,21 +9,20 @@ using SolidWorks.Interop.swconst;
 namespace SolidAPI.SwFiles
 {
     public class SwFilesType
-    { 
-
-        #region Files SLDPRT
-        public string SelectSldprt()
+    {
+        //ALL TYPES
+        public string SetFile()
         {
             OpenFileDialog openFileSW = new OpenFileDialog
             {
                 InitialDirectory = @"C:\models",
-                Title = "Browse SLDPRT Files",
+                Title = "Browse Files",
 
                 CheckFileExists = true,
                 CheckPathExists = true,
 
                 DefaultExt = "sldprt",
-                Filter = "sldprt files (*.sldprt)|*.sldprt",
+                Filter = "sldprt files (*.sldprt;*.sldasm;*.slddrw)|*.sldprt;*.sldasm;*.slddrw",
                 FilterIndex = 2,
                 RestoreDirectory = true,
 
@@ -30,38 +30,58 @@ namespace SolidAPI.SwFiles
                 ShowReadOnly = true
             };
 
-            if (openFileSW.ShowDialog() == DialogResult.OK)
-            {
-                return openFileSW.FileName.ToString();
-            }
-            else
-            {
-                return string.Empty;
-            }
+            return openFileSW.ShowDialog() == DialogResult.OK ? openFileSW.FileName : string.Empty;
         }
 
-        public void OpenSldprt(string CaminhoArquivo, SldWorks sldWorks)
+        public void OpenFile(string file, string fileType, SldWorks sldWorks)
         {
             int err = 0, wars = 0;
-            
+
             try
             {
-                ModelDoc2 swModelDoc = sldWorks.OpenDoc6(
-                    CaminhoArquivo,
-                    (int)swDocumentTypes_e.swDocPART,
-                    0,
-                    "",
-                    err,
-                    wars
-                );
+                if (fileType == ".SLDPRT")
+                {
+                    ModelDoc2 swModelDoc = sldWorks.OpenDoc6(
+                        file,
+                        (int)swDocumentTypes_e.swDocPART,
+                        0,
+                        "",
+                        err,
+                        wars
+                    );
 
-                PartDoc swpPart = (PartDoc)swModelDoc;
+                    PartDoc swpPart = (PartDoc)swModelDoc;
+                }
 
+                if (fileType == ".SLDASM")
+                {
+                    ModelDoc2 swModelDoc = sldWorks.OpenDoc6(
+                        file,
+                        (int)swDocumentTypes_e.swDocASSEMBLY,
+                        0,
+                        "",
+                        err,
+                        wars
+                    );
+                    AssemblyDoc swAsmb = (AssemblyDoc)swModelDoc;
+                }
 
-                //ARQUIVO ABERTO ||=> getActiveSldprt()
-                var fileSldprt = getActiveSldprt(sldWorks);
-                MessageBox.Show($"VOCE ABRIU: {fileSldprt}");
+                if (fileType == ".SLDDRW")
+                {
+                    ModelDoc2 swModelDoc = sldWorks.OpenDoc6(
+                        file,
+                        (int)swDocumentTypes_e.swDocDRAWING,
+                        0,
+                        "",
+                        err,
+                        wars
+                    );
+
+                    DrawingDoc swDrw = (DrawingDoc)swModelDoc;
+                }
+
                 //ARQUIVO ABERTO
+                MessageBox.Show($"VOCE ABRIU: {GetOpenFile(sldWorks)}");
             }
             catch (Exception e)
             {
@@ -69,14 +89,14 @@ namespace SolidAPI.SwFiles
             }
         }
 
-        public string GetActiveSldprt(SldWorks sldWorks)
+        public string GetOpenFile(SldWorks sldWorks)
         {
-            string fileSldprt = "";
+            string openFile = "";
 
             try
             {
                 ModelDoc2 swModelDoc = (ModelDoc2)sldWorks.ActiveDoc;
-                fileSldprt = swModelDoc.GetTitle();
+                openFile = swModelDoc.GetTitle();
             }
             catch (Exception ex)
             {
@@ -84,14 +104,14 @@ namespace SolidAPI.SwFiles
                 MessageBox.Show(ex.Message, "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            return fileSldprt;
+            return openFile;
         }
 
-        public void CloseSldprt(string CaminhoArquivo, SldWorks sldWorks)
+        public void CloseFile(string file, SldWorks sldWorks)
         {
             try
             {
-                sldWorks.CloseDoc(CaminhoArquivo);
+                sldWorks.CloseDoc(file);
             }
             catch (Exception ex)
             {
@@ -99,7 +119,10 @@ namespace SolidAPI.SwFiles
                 MessageBox.Show(ex.Message, "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        #endregion
 
+        public string GetFileType(string file)
+        {
+            return Path.GetExtension(file.ToUpper());
+        }
     }
 }

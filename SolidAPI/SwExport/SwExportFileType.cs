@@ -5,11 +5,17 @@ using System.Windows.Forms;
 // SolidWorks DLLs
 using SolidWorks.Interop.sldworks;
 
+//SKA
+using SWSKA;
+
 namespace SolidAPI.SwExport
 {
     public class SwExportFileType
     {
-        public void JPG(string fileSldprtJpg, string caminhoExportArquivo, SldWorks sldWorks)
+        //Instancia LIB SKA
+        SW sw = new SW();
+
+        public void JPG(string fileJpg, string caminhoExportArquivo, SldWorks sldWorks)
         {
             try
             {
@@ -17,7 +23,7 @@ namespace SolidAPI.SwExport
                 ModelDoc2 swModelDoc = (ModelDoc2)sldWorks.ActiveDoc;
 
                 //Export
-                string fullPath = Path.Combine(caminhoExportArquivo, fileSldprtJpg);
+                string fullPath = Path.Combine(caminhoExportArquivo, fileJpg);
 
                 bool resultado = swModelDoc.SaveAs(fullPath);
 
@@ -31,6 +37,11 @@ namespace SolidAPI.SwExport
             {
                 MessageBox.Show(ex.Message, "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        public void pdf(string fullPath)
+        {
+            sw._swexportaPDF(fullPath);
         }
 
         public string SetLocalExport()
