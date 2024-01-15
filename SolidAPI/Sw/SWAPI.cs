@@ -12,7 +12,7 @@ namespace SolidAPI.Sw
         //Process SolidWorks
         private int ProcesID = 0;
 
-        public SldWorks AbrirSolidWorks(bool Visivel, int Versao)
+        public SldWorks OpenSolidWorks(bool Visivel, int Versao)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace SolidAPI.Sw
             }
         }
 
-        public void FecharSolidWorks()
+        public void CloseSolidWorks()
         {
             try
             {
@@ -46,6 +46,32 @@ namespace SolidAPI.Sw
                 throw new Exception($"Erro ao Fechar SolidWorks: {e.Message}\n{e.StackTrace}");
             }
         }
-    
+
+        public SldWorks CheckAndOpenSolidWorks()
+        {
+            try
+            {
+                Process[] processos = Process.GetProcesses();
+                var sldworksProcess = processos.FirstOrDefault(x => x.Id == ProcesID);
+
+                if (sldworksProcess == null)
+                {
+                    SldWorks swApp = Activator.CreateInstance(Type.GetTypeFromProgID(
+                        $"SldWorks.Application.{sldworksProcess.MainModule.FileVersionInfo.ProductVersion}")
+                    ) as SldWorks;
+
+                    return swApp;
+                }
+                else
+                {
+                    // Se o SolidWorks não estiver em execução, abra-o
+                    return OpenSolidWorks(true, 31);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Erro ao verificar SolidWorks: {e.Message}\n{e.StackTrace}");
+            }
+        }
     }
 }

@@ -17,19 +17,20 @@ namespace SolidAPI
     public partial class swApiForm : Form
     {
         #region External & VARIABLES
+
         //SWAPI - CLASS
         SWAPI swapi = new SWAPI();
-
-        //SwExportFileType - CLASS
-        SwExportFileType swExportFileType = new SwExportFileType();
 
         //SwFiles - CLASS
         SwFilesType swFilesType = new SwFilesType();
 
-        //SldWorks - Instancia
+        //SwExportFileType - CLASS
+        SwExportFileType swExportFileType = new SwExportFileType();
+
+        //SldWorks - Instance
         SldWorks sldWorks = default(SldWorks);
 
-        //Arquivo 
+        //File - Var  
         string _file;
         string _fileType;
         #endregion
@@ -45,7 +46,7 @@ namespace SolidAPI
             lbProcesso.Text = "Abrindo Solidworks...";
             try
             {
-                sldWorks = swapi.AbrirSolidWorks(chkVisivel.Checked, 31);
+                sldWorks = swapi.OpenSolidWorks(chkVisivel.Checked, 31);
                 lbProcesso.Text = "";
             }
             catch (Exception ex)
@@ -59,7 +60,7 @@ namespace SolidAPI
             lbProcesso.Text = "Fechando Solidworks...";
             try
             {
-                swapi.FecharSolidWorks();
+                swapi.CloseSolidWorks();
                 lbProcesso.Text = "";
             }
             catch (Exception ex)
@@ -72,8 +73,10 @@ namespace SolidAPI
         #region BTN_ARQUIVOS
         private void btnAbrir_Arquivo_Click(object sender, EventArgs e)
         {
-            lbProcesso.Text = "Abrindo Arquivo...";
+            
+            sldWorks = swapi.CheckAndOpenSolidWorks();
 
+            lbProcesso.Text = "Abrindo Arquivo...";
             try
             {
                 _file = swFilesType.SetFile();
@@ -94,6 +97,8 @@ namespace SolidAPI
 
         private void btnFechar_Arquivo_Click(object sender, EventArgs e)
         {
+            sldWorks = swapi.CheckAndOpenSolidWorks();
+
             lbProcesso.Text = "FECHAR Arquivo...";
 
             try

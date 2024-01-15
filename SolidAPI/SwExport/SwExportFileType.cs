@@ -12,17 +12,15 @@ namespace SolidAPI.SwExport
 {
     public class SwExportFileType
     {
-        //Instancia LIB SKA
+        //LIB SKA
         SW sw = new SW();
 
         public void JPG(string fileJPG, string caminhoExportArquivo, SldWorks sldWorks)
         {
             try
             {
-                //CAST
                 ModelDoc2 swModelDoc = (ModelDoc2)sldWorks.ActiveDoc;
 
-                //Export
                 string fullPath = Path.Combine(caminhoExportArquivo, fileJPG);
 
                 bool resultado = swModelDoc.SaveAs(fullPath);

@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\ExportDWGOpt.cs" />
     <Compile Include="SwExport\SwExportFileType.cs" />
     <Compile Include="Sw\SWAPI.cs" />
     <Compile Include="swApiForm.cs">
