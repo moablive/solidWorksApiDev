@@ -39,6 +39,7 @@ namespace SolidAPI
             this.btnFechar_Arquivo = new System.Windows.Forms.Button();
             this.btnAbrir_Arquivo = new System.Windows.Forms.Button();
             this.lbProcesso = new System.Windows.Forms.Label();
+            this.btnExportarDWG = new System.Windows.Forms.Button();
             this.grpBoxSW.SuspendLayout();
             this.grpBoxArquivo.SuspendLayout();
             this.SuspendLayout();
@@ -87,13 +88,14 @@ namespace SolidAPI
             // 
             // grpBoxArquivo
             // 
+            this.grpBoxArquivo.Controls.Add(this.btnExportarDWG);
             this.grpBoxArquivo.Controls.Add(this.btnExportarPDF);
             this.grpBoxArquivo.Controls.Add(this.btnExportarJPG);
             this.grpBoxArquivo.Controls.Add(this.btnFechar_Arquivo);
             this.grpBoxArquivo.Controls.Add(this.btnAbrir_Arquivo);
             this.grpBoxArquivo.Location = new System.Drawing.Point(50, 205);
             this.grpBoxArquivo.Name = "grpBoxArquivo";
-            this.grpBoxArquivo.Size = new System.Drawing.Size(200, 182);
+            this.grpBoxArquivo.Size = new System.Drawing.Size(200, 233);
             this.grpBoxArquivo.TabIndex = 4;
             this.grpBoxArquivo.TabStop = false;
             this.grpBoxArquivo.Text = "Arquivo";
@@ -146,6 +148,16 @@ namespace SolidAPI
             this.lbProcesso.Size = new System.Drawing.Size(0, 13);
             this.lbProcesso.TabIndex = 5;
             // 
+            // btnExportarDWG
+            // 
+            this.btnExportarDWG.Location = new System.Drawing.Point(20, 182);
+            this.btnExportarDWG.Name = "btnExportarDWG";
+            this.btnExportarDWG.Size = new System.Drawing.Size(105, 32);
+            this.btnExportarDWG.TabIndex = 4;
+            this.btnExportarDWG.Text = "Exportar - DWG";
+            this.btnExportarDWG.UseVisualStyleBackColor = true;
+            this.btnExportarDWG.Click += new System.EventHandler(this.btnExportarDWG_Click);
+            // 
             // swApiForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -176,6 +188,7 @@ namespace SolidAPI
         private System.Windows.Forms.Button btnExportarJPG;
         private System.Windows.Forms.Label lbProcesso;
         private System.Windows.Forms.Button btnExportarPDF;
+        private System.Windows.Forms.Button btnExportarDWG;
     }
 }
 

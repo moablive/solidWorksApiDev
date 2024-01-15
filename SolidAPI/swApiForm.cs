@@ -14,9 +14,9 @@ using System.IO;
 
 namespace SolidAPI
 {
-    public partial class swApiForm : Form
+    public partial class swApiForm : Form 
     {
-        #region External & VARIABLES
+        #region ....
 
         //SWAPI - CLASS
         SWAPI swapi = new SWAPI();
@@ -52,6 +52,7 @@ namespace SolidAPI
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lbProcesso.Text = "";
             }
         }
 
@@ -66,6 +67,7 @@ namespace SolidAPI
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "ERRO", MessageBoxButtons.OK,MessageBoxIcon.Error);
+                lbProcesso.Text = "";
             }
         }
         #endregion
@@ -92,6 +94,7 @@ namespace SolidAPI
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lbProcesso.Text = "";
             }
         }
 
@@ -109,59 +112,97 @@ namespace SolidAPI
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lbProcesso.Text = "";
             }
         }
+        #endregion
 
+        #region BTN_Export
         private void btnExportarJPG_Click(object sender, EventArgs e)
         {
             lbProcesso.Text = "Exportando JPG...";
             try
             {
-                //SET LOCAL
-                string caminhoExportArquivo = swExportFileType.SetLocalExport();
+                //SetLocalExport
+                string exportDir = swExportFileType.SetLocalExport();
 
-                //GET ARQUIVO ABERTO
-                string getFile = swFilesType.GetOpenFile(sldWorks);
+                //GetOpenFile
+                string getOpenFile = swFilesType.GetOpenFile(sldWorks);
 
-                //REPLACE SLDPRT => JPG
-                string fileJPG = getFile.ToUpper()
-                    .Replace(".SLDPRT", ".JPG")
-                    .Replace(".SLDASM", ".JPG")
-                    .Replace(".SLDDRW", ".JPG");
+                //ReplaceFileExtension
+                string fileJPG = swFilesType.ReplaceFileExtension(getOpenFile, ".JPG");
 
                 //Convert => jpg()
-                swExportFileType.JPG(fileJPG, caminhoExportArquivo, sldWorks);
+                swExportFileType.JPG(fileJPG, exportDir, sldWorks);
 
                 lbProcesso.Text = "";
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lbProcesso.Text = "";
             }
         }
 
         private void btnExportarPDF_Click(object sender, EventArgs e)
         {
             //SET LOCAL
-            string caminhoExportArquivo = swExportFileType.SetLocalExport();
+            string exportDir = swExportFileType.SetLocalExport();
 
-            //GET SLDPRT ABERTO
+            //GET ARQUIVO ABERTO
             string getFile = swFilesType.GetOpenFile(sldWorks);
 
-            //REPLACE SLDPRT => JPG
+            //REPLACE
             string filePDF = getFile.ToUpper()
                 .Replace(".SLDPRT", ".PDF")
                 .Replace(".SLDASM", ".PDF")
                 .Replace(".SLDDRW", ".PDF");
 
-            //Export
-            string fullPath = Path.Combine(caminhoExportArquivo, filePDF);
+            string fullPath = Path.Combine(exportDir, filePDF);
 
-            //VERIFICAR TIPOS COMPATIVEIS
-            swExportFileType.pdf(fullPath);
+            //Convert => pdf()
+            swExportFileType.PDF(fullPath);
+        }
+
+        private void btnExportarDWG_Click(object sender, EventArgs e)
+        {
+            lbProcesso.Text = "Exportando DWG...";
+            try
+            {
+                //SetLocalExport
+                string exportDir = swExportFileType.SetLocalExport();
+
+                //GetOpenFile
+                string getOpenFile = swFilesType.GetOpenFile(sldWorks);
+
+                //GetFileType
+                string type = swFilesType.GetFileType(getOpenFile);
+
+                //ReplaceFileExtension
+                string fileDWG = swFilesType.ReplaceFileExtension(getOpenFile, ".DWG");
+
+                //DIR + fileDWG
+                string fullPath = Path.Combine(exportDir, fileDWG);
+
+                if (type == ".SLDPRT")
+                {
+                    swFilesType.VerifySheetMetal(sldWorks);
+                    swExportFileType.DWG(getOpenFile, fullPath,sldWorks);
+                }
+                else
+                {
+                    throw new Exception("Arquivo não é um desenho");
+                    lbProcesso.Text = "";
+                }
+                
+                lbProcesso.Text = "";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lbProcesso.Text = "";
+            }
         }
         #endregion
     }
 }
-
-

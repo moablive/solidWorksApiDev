@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using SolidAPI.Sw;
+
 
 // SolidWorks DLLs
 using SolidWorks.Interop.sldworks;
@@ -8,8 +10,9 @@ using SolidWorks.Interop.swconst;
 
 namespace SolidAPI.SwFiles
 {
-    public class SwFilesType
+    public class SwFilesType : SWAPI
     {
+       
         //ALL TYPES
         public string SetFile()
         {
@@ -39,9 +42,11 @@ namespace SolidAPI.SwFiles
 
             try
             {
+                SetActiveDoc(sldWorks);
+
                 if (fileType == ".SLDPRT")
                 {
-                    ModelDoc2 swModelDoc = sldWorks.OpenDoc6(
+                    swModelDoc = sldWorks.OpenDoc6(
                         file,
                         (int)swDocumentTypes_e.swDocPART,
                         0,
@@ -55,7 +60,7 @@ namespace SolidAPI.SwFiles
 
                 if (fileType == ".SLDASM")
                 {
-                    ModelDoc2 swModelDoc = sldWorks.OpenDoc6(
+                    swModelDoc = sldWorks.OpenDoc6(
                         file,
                         (int)swDocumentTypes_e.swDocASSEMBLY,
                         0,
@@ -68,7 +73,7 @@ namespace SolidAPI.SwFiles
 
                 if (fileType == ".SLDDRW")
                 {
-                    ModelDoc2 swModelDoc = sldWorks.OpenDoc6(
+                    swModelDoc = sldWorks.OpenDoc6(
                         file,
                         (int)swDocumentTypes_e.swDocDRAWING,
                         0,
@@ -95,7 +100,7 @@ namespace SolidAPI.SwFiles
 
             try
             {
-                ModelDoc2 swModelDoc = (ModelDoc2)sldWorks.ActiveDoc;
+                swModelDoc = (ModelDoc2)sldWorks.ActiveDoc;
                 openFile = swModelDoc.GetTitle();
             }
             catch (Exception ex)
@@ -123,6 +128,29 @@ namespace SolidAPI.SwFiles
         public string GetFileType(string file)
         {
             return Path.GetExtension(file.ToUpper());
+        }
+
+        public bool VerifySheetMetal(SldWorks sldWorks)
+        {
+            swModelDoc = (ModelDoc2)sldWorks.ActiveDoc;
+            Feature feat = (Feature)swModelDoc.FirstFeature();
+
+            while (feat != null)
+            {
+                if (feat.GetTypeName2().ToUpper() == "SHEETMETAL")
+                {
+                    return true;
+                }
+
+                feat = (Feature)feat.GetNextFeature();
+            }
+
+            return false;
+        }
+
+        public string ReplaceFileExtension(string filePath, string newExtension)
+        {
+            return Path.ChangeExtension(filePath.ToUpper(), newExtension);
         }
     }
 }

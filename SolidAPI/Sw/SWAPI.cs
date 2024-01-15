@@ -11,6 +11,7 @@ namespace SolidAPI.Sw
     {
         //Process SolidWorks
         private int ProcesID = 0;
+        public ModelDoc2 swModelDoc;
 
         public SldWorks OpenSolidWorks(bool Visivel, int Versao)
         {
@@ -72,6 +73,11 @@ namespace SolidAPI.Sw
             {
                 throw new Exception($"Erro ao verificar SolidWorks: {e.Message}\n{e.StackTrace}");
             }
+        }
+
+        public ModelDoc2 SetActiveDoc(SldWorks sldWorks)
+        { 
+            return swModelDoc = (ModelDoc2)sldWorks.ActiveDoc;
         }
     }
 }
