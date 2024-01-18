@@ -1,31 +1,33 @@
-﻿using System;
-using System.Drawing.Imaging;
+﻿//System
+using System;
 using System.IO;
 using System.Windows.Forms;
-using SolidAPI.Enums;
-using SolidAPI.Sw;
+
 
 // SolidWorks DLLs
 using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 
-//SKA
+//LIB SKA
 using SWSKA;
+
+//
+using SolidAPI.Enums;
 
 namespace SolidAPI.SwExport
 {
-    public class SwExportFileType : SWAPI
+    public class SwExportFileType
     {
         //LIB SKA
         SW sw = new SW();
 
-        public void JPG(string fileJPG, string exportDir, SldWorks sldWorks)
+        public void JPG(string fileJPG, string exportDir, ModelDoc2 model)
         {
             try
             {
                 string fullPath = Path.Combine(exportDir, fileJPG);
 
-                bool resultado = swModelDoc.SaveAs(fullPath);
+                bool resultado = model.SaveAs(fullPath);
 
                 if (!resultado)
                 {
@@ -39,42 +41,31 @@ namespace SolidAPI.SwExport
             }
         }
 
+        ////LIB SKA
         public void PDF(string fullPath)
         {
-            sw._swexportaPDF(fullPath);
+           sw._swexportaPDF(fullPath);
         }
 
-        public void DWG(string getOpenFile, string fullPath, SldWorks sldWorks)
+        public void DWG(string getOpenFile, string fullPath, ModelDoc2 model)
         {
-            int err = 0, wars = 0;
+            
+            int DWGOpt = (int)ExportDWGOpt.ExpGeometry + (int)ExportDWGOpt.ExpLibFiles + (int)ExportDWGOpt.ExpBendLines;
 
-            int opcoes = (int)ExportDWGOpt.ExpGeometry
-                         + (int)ExportDWGOpt.ExpLibFiles
-                         + (int)ExportDWGOpt.ExpBendLines;
-
-            swModelDoc = sldWorks.OpenDoc6(
-                getOpenFile,
-                (int)swDocumentTypes_e.swDocPART,
-                0,
-                "",
-                err,
-                wars
-            );
-
-            PartDoc swpPart = (PartDoc)swModelDoc;
+            PartDoc swpPart = (PartDoc)model;
 
             bool resultado = swpPart.ExportToDWG(
-                fullPath,
-                getOpenFile, 
-                (int)swExportToDWG_e.swExportToDWG_ExportSheetMetal,
-                true,
-                null,
+                fullPath, 
+                getOpenFile,
+                (int)swExportToDWG_e.swExportToDWG_ExportSheetMetal, 
+                true, 
+                null, 
                 false, 
                 false,
-                opcoes,
+                DWGOpt, 
                 null
             );
-            
+
             if (!resultado)
             {
                 throw new Exception("Erro ao exportar arquivo");

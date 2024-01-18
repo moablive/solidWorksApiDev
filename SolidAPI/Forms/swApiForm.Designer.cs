@@ -34,14 +34,19 @@ namespace SolidAPI
             this.btnFecharSw = new System.Windows.Forms.Button();
             this.grpBoxSW = new System.Windows.Forms.GroupBox();
             this.grpBoxArquivo = new System.Windows.Forms.GroupBox();
+            this.btnExportarDWG = new System.Windows.Forms.Button();
             this.btnExportarPDF = new System.Windows.Forms.Button();
             this.btnExportarJPG = new System.Windows.Forms.Button();
             this.btnFechar_Arquivo = new System.Windows.Forms.Button();
             this.btnAbrir_Arquivo = new System.Windows.Forms.Button();
-            this.lbProcesso = new System.Windows.Forms.Label();
-            this.btnExportarDWG = new System.Windows.Forms.Button();
+            this.lbPro = new System.Windows.Forms.Label();
+            this.grpBoxProp = new System.Windows.Forms.GroupBox();
+            this.pecaDef = new System.Windows.Forms.CheckBox();
+            this.btnAltProp = new System.Windows.Forms.Button();
+            this.btnBuscaProp = new System.Windows.Forms.Button();
             this.grpBoxSW.SuspendLayout();
             this.grpBoxArquivo.SuspendLayout();
+            this.grpBoxProp.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAbrirSW
@@ -95,10 +100,20 @@ namespace SolidAPI
             this.grpBoxArquivo.Controls.Add(this.btnAbrir_Arquivo);
             this.grpBoxArquivo.Location = new System.Drawing.Point(50, 205);
             this.grpBoxArquivo.Name = "grpBoxArquivo";
-            this.grpBoxArquivo.Size = new System.Drawing.Size(200, 233);
+            this.grpBoxArquivo.Size = new System.Drawing.Size(147, 233);
             this.grpBoxArquivo.TabIndex = 4;
             this.grpBoxArquivo.TabStop = false;
             this.grpBoxArquivo.Text = "Arquivo";
+            // 
+            // btnExportarDWG
+            // 
+            this.btnExportarDWG.Location = new System.Drawing.Point(20, 182);
+            this.btnExportarDWG.Name = "btnExportarDWG";
+            this.btnExportarDWG.Size = new System.Drawing.Size(105, 32);
+            this.btnExportarDWG.TabIndex = 4;
+            this.btnExportarDWG.Text = "Exportar - DWG";
+            this.btnExportarDWG.UseVisualStyleBackColor = true;
+            this.btnExportarDWG.Click += new System.EventHandler(this.btnExportarDWG_Click);
             // 
             // btnExportarPDF
             // 
@@ -140,30 +155,64 @@ namespace SolidAPI
             this.btnAbrir_Arquivo.UseVisualStyleBackColor = true;
             this.btnAbrir_Arquivo.Click += new System.EventHandler(this.btnAbrir_Arquivo_Click);
             // 
-            // lbProcesso
+            // grpBoxProp
             // 
-            this.lbProcesso.AutoSize = true;
-            this.lbProcesso.Location = new System.Drawing.Point(13, 425);
-            this.lbProcesso.Name = "lbProcesso";
-            this.lbProcesso.Size = new System.Drawing.Size(0, 13);
-            this.lbProcesso.TabIndex = 5;
+            this.grpBoxProp.Controls.Add(this.pecaDef);
+            this.grpBoxProp.Controls.Add(this.btnAltProp);
+            this.grpBoxProp.Controls.Add(this.btnBuscaProp);
+            this.grpBoxProp.Location = new System.Drawing.Point(203, 209);
+            this.grpBoxProp.Name = "grpBoxProp";
+            this.grpBoxProp.Size = new System.Drawing.Size(151, 229);
+            this.grpBoxProp.TabIndex = 6;
+            this.grpBoxProp.TabStop = false;
+            this.grpBoxProp.Text = "Propiedades";
             // 
-            // btnExportarDWG
+            // pecaDef
             // 
-            this.btnExportarDWG.Location = new System.Drawing.Point(20, 182);
-            this.btnExportarDWG.Name = "btnExportarDWG";
-            this.btnExportarDWG.Size = new System.Drawing.Size(105, 32);
-            this.btnExportarDWG.TabIndex = 4;
-            this.btnExportarDWG.Text = "Exportar - DWG";
-            this.btnExportarDWG.UseVisualStyleBackColor = true;
-            this.btnExportarDWG.Click += new System.EventHandler(this.btnExportarDWG_Click);
+            this.pecaDef.AutoSize = true;
+            this.pecaDef.Location = new System.Drawing.Point(30, 125);
+            this.pecaDef.Name = "pecaDef";
+            this.pecaDef.Size = new System.Drawing.Size(75, 17);
+            this.pecaDef.TabIndex = 7;
+            this.pecaDef.Text = "Peça DEF";
+            this.pecaDef.UseVisualStyleBackColor = true;
+            // 
+            // btnAltProp
+            // 
+            this.btnAltProp.Location = new System.Drawing.Point(27, 68);
+            this.btnAltProp.Name = "btnAltProp";
+            this.btnAltProp.Size = new System.Drawing.Size(83, 51);
+            this.btnAltProp.TabIndex = 6;
+            this.btnAltProp.Text = "Alterar Propriedades";
+            this.btnAltProp.UseVisualStyleBackColor = true;
+            this.btnAltProp.Click += new System.EventHandler(this.btnAltProp_Click);
+            // 
+            // btnBuscaProp
+            // 
+            this.btnBuscaProp.Location = new System.Drawing.Point(6, 30);
+            this.btnBuscaProp.Name = "btnBuscaProp";
+            this.btnBuscaProp.Size = new System.Drawing.Size(133, 32);
+            this.btnBuscaProp.TabIndex = 5;
+            this.btnBuscaProp.Text = "Buscar Propriedades";
+            this.btnBuscaProp.UseVisualStyleBackColor = true;
+            this.btnBuscaProp.Click += new System.EventHandler(this.btnBuscaProp_Click);
+            // 
+            // lbPro
+            // 
+            this.lbPro.AutoSize = true;
+            this.lbPro.Location = new System.Drawing.Point(16, 476);
+            this.lbPro.Name = "lbPro";
+            this.lbPro.Size = new System.Drawing.Size(19, 13);
+            this.lbPro.TabIndex = 7;
+            this.lbPro.Text = "....";
             // 
             // swApiForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(366, 450);
-            this.Controls.Add(this.lbProcesso);
+            this.ClientSize = new System.Drawing.Size(366, 501);
+            this.Controls.Add(this.lbPro);
+            this.Controls.Add(this.grpBoxProp);
             this.Controls.Add(this.grpBoxArquivo);
             this.Controls.Add(this.grpBoxSW);
             this.Name = "swApiForm";
@@ -171,6 +220,8 @@ namespace SolidAPI
             this.grpBoxSW.ResumeLayout(false);
             this.grpBoxSW.PerformLayout();
             this.grpBoxArquivo.ResumeLayout(false);
+            this.grpBoxProp.ResumeLayout(false);
+            this.grpBoxProp.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -186,9 +237,14 @@ namespace SolidAPI
         private System.Windows.Forms.Button btnAbrir_Arquivo;
         private System.Windows.Forms.Button btnFechar_Arquivo;
         private System.Windows.Forms.Button btnExportarJPG;
-        private System.Windows.Forms.Label lbProcesso;
         private System.Windows.Forms.Button btnExportarPDF;
         private System.Windows.Forms.Button btnExportarDWG;
+        private System.Windows.Forms.GroupBox grpBoxProp;
+        private System.Windows.Forms.Button btnBuscaProp;
+        private System.Windows.Forms.CheckBox pecaDef;
+        private System.Windows.Forms.Button btnAltProp;
+
+        private System.Windows.Forms.Label lbPro;
     }
 }
 

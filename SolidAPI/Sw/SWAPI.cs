@@ -1,4 +1,5 @@
-﻿using System;
+﻿//System
+using System;
 using System.Diagnostics;
 using System.Linq;
 
@@ -9,8 +10,8 @@ namespace SolidAPI.Sw
 {
     public class SWAPI
     {
-        //Process SolidWorks
-        private int ProcesID = 0;
+        private int _pid = 0;
+
         public ModelDoc2 swModelDoc;
 
         public SldWorks OpenSolidWorks(bool Visivel, int Versao)
@@ -23,7 +24,7 @@ namespace SolidAPI.Sw
 
                 swApp.Visible = Visivel;
 
-                ProcesID = swApp.GetProcessID();
+                _pid = swApp.GetProcessID();
 
                 return swApp;
             }
@@ -38,7 +39,7 @@ namespace SolidAPI.Sw
             try
             {
                 Process[] processos = Process.GetProcesses();
-                var sldworks = processos.FirstOrDefault(x => x.Id == ProcesID);
+                var sldworks = processos.FirstOrDefault(x => x.Id == _pid);
                 sldworks.Kill();
 
             }
@@ -46,38 +47,6 @@ namespace SolidAPI.Sw
             {
                 throw new Exception($"Erro ao Fechar SolidWorks: {e.Message}\n{e.StackTrace}");
             }
-        }
-
-        public SldWorks CheckAndOpenSolidWorks()
-        {
-            try
-            {
-                Process[] processos = Process.GetProcesses();
-                var sldworksProcess = processos.FirstOrDefault(x => x.Id == ProcesID);
-
-                if (sldworksProcess == null)
-                {
-                    SldWorks swApp = Activator.CreateInstance(Type.GetTypeFromProgID(
-                        $"SldWorks.Application.{sldworksProcess.MainModule.FileVersionInfo.ProductVersion}")
-                    ) as SldWorks;
-
-                    return swApp;
-                }
-                else
-                {
-                    // Se o SolidWorks não estiver em execução, abra-o
-                    return OpenSolidWorks(true, 31);
-                }
-            }
-            catch (Exception e)
-            {
-                throw new Exception($"Erro ao verificar SolidWorks: {e.Message}\n{e.StackTrace}");
-            }
-        }
-
-        public ModelDoc2 SetActiveDoc(SldWorks sldWorks)
-        { 
-            return swModelDoc = (ModelDoc2)sldWorks.ActiveDoc;
         }
     }
 }
