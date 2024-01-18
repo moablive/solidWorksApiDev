@@ -1,8 +1,6 @@
 ﻿//System
 using System;
 using System.Windows.Forms;
-using SolidAPI.Models;
-
 
 //SolidWorks DLLs
 using SolidWorks.Interop.sldworks;

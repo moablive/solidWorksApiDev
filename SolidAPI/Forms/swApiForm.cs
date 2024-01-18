@@ -5,24 +5,18 @@ using System.IO;
 //SOLIDWORKS DLLs
 using SolidWorks.Interop.sldworks;
 
-//PROJETO
+//PROJECT - SolidAPI
 using SolidAPI.Sw;
 using SolidAPI.SwFiles;
 using SolidAPI.SwExport;
 using SolidAPI.Menssages;
-
-
 using SolidAPI.Forms.Prop;
-using SolidAPI.Models;
-using System.Reflection;
-using System.Security.Cryptography;
-
 
 namespace SolidAPI
 {
     public partial class swApiForm : Form 
     {
-        #region ....
+        #region Imports & Class
 
         //SWAPI - CLASS
         SWAPI swapi = new SWAPI();

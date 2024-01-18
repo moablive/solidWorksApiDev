@@ -1,7 +1,6 @@
 ﻿//System
 using System.Windows.Forms;
 
-
 namespace SolidAPI.Forms.Prop
 {
     public partial class FindProp : Form

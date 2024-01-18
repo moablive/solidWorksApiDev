@@ -1,6 +1,8 @@
-﻿using System;
+﻿//System
+using System;
 using System.Windows.Forms;
 
+//PROJECT - SolidAPI
 using SolidAPI.Models; 
 
 namespace SolidAPI
